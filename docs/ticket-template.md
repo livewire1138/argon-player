@@ -26,17 +26,21 @@ Describe the user or system outcome this ticket should deliver.
 - Key files/modules expected to change:
 - Architectural considerations:
 - Risk areas:
+- Assumptions being made (explicitly list):
+- Abuse/failure cases considered:
 
 ## 5) Acceptance Criteria (Done when)
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
+- [ ] Includes explicit degraded-mode behavior for at least one failure path
 
 ## 6) Test/Verification Plan
 List explicit commands and expected outcomes.
 
 - [ ] `command_here`
 - [ ] `another_command_here`
+- [ ] Negative-path check (error, timeout, or unavailable dependency)
 
 ## 7) Deliverables
 - Code changes:
@@ -46,7 +50,12 @@ List explicit commands and expected outcomes.
 ## 8) Rollback Plan
 How to safely revert if issues are discovered.
 
-## 9) AI Run Log
+## 9) Telemetry / SLO impact
+- Metrics/logging added or changed:
+- Expected impact on v1 SLOs:
+- Dashboard/alert updates required:
+
+## 10) AI Run Log
 ### Prompt used
 ```
 (paste implementation prompt)
@@ -60,7 +69,7 @@ How to safely revert if issues are discovered.
 - 
 - 
 
-## 10) Completion Checklist
+## 11) Completion Checklist
 - [ ] Dependencies satisfied
 - [ ] Acceptance criteria met
 - [ ] Tests/checks passed
