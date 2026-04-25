@@ -269,9 +269,104 @@ Argon Player is a Linux-first, provider-agnostic media hub intended to unify dis
 
 ---
 
+
+## Adversarial gap audit (viability to 1.0)
+
+This backlog is intentionally not exhaustive, but a viable 1.0 roadmap needs explicit closure on the highest-risk failure modes. The gaps below were identified by adversarially asking: “what could make a technically-working app still fail users or fail release?”
+
+### Gap A — No explicit 1.0 exit criteria
+- **Risk:** Team can keep shipping features without knowing when the product is release-ready.
+- **Backlog response:** Add AP-046 (1.0 release criteria + go/no-go gate).
+
+### Gap B — No Linux packaging/update path
+- **Risk:** Product may work in dev but be impractical to install/update safely on target systems.
+- **Backlog response:** Add AP-047 (distribution packaging) and AP-048 (safe updater strategy).
+
+### Gap C — Ambiguous “unsupported/legal-risk” handling for sources
+- **Risk:** Integrations can expose users to legal/compliance ambiguity and operational risk.
+- **Backlog response:** Add AP-049 (source policy + trust labeling).
+
+### Gap D — No minimum performance/SLO bar
+- **Risk:** App can be functionally correct but too slow/unreliable for daily use.
+- **Backlog response:** Add AP-050 (v1 performance budgets + SLOs).
+
+### Gap E — Incomplete crash recovery and data integrity story
+- **Risk:** Power loss/crash can corrupt state and damage user trust.
+- **Backlog response:** Add AP-051 (atomic writes + startup recovery checks).
+
+### Gap F — No explicit “unsupported provider” UX path
+- **Risk:** Users face silent failures when sources partially implement contracts.
+- **Backlog response:** Add AP-052 (degraded-mode UX contracts).
+
+### Gap G — No release-channel strategy
+- **Risk:** Regressions ship directly to all users without staged validation.
+- **Backlog response:** Add AP-053 (alpha/beta/stable channel policy).
+
+---
+
 ## Dependency-first execution order (no time gating)
 1. Core contracts first: AP-001 → AP-005, AP-003, AP-004
 2. First vertical slice: AP-007/008/009/010 + AP-020/021 + AP-026/029/030
 3. Stability floor: AP-022/024/033/037/039/041/042
 4. Second-source expansion: AP-011/012/025/031
 5. Quality hardening: AP-043/045 + remaining P1/P2 tickets
+
+## Epic I — Release Engineering & Distribution
+
+### AP-046 — Define Argon Player 1.0 exit criteria
+- **Priority:** P0
+- **Depends on:** AP-042, AP-045, AP-050
+- **Done when:** A written go/no-go checklist exists with explicit thresholds for reliability, performance, crash rate, and unresolved P0 defects.
+
+### AP-047 — Linux distribution packaging baseline
+- **Priority:** P0
+- **Depends on:** AP-026, AP-033
+- **Done when:** Reproducible release artifacts are generated for at least one primary package format with install/uninstall verification.
+
+### AP-048 — Safe updater strategy (manual first, auto optional)
+- **Priority:** P1
+- **Depends on:** AP-047
+- **Done when:** Signed version metadata and rollback-safe update flow are documented and testable.
+
+### AP-053 — Release channels policy (alpha/beta/stable)
+- **Priority:** P1
+- **Depends on:** AP-045, AP-047
+- **Done when:** Build promotion rules, gating checks, and rollback owner responsibilities are documented.
+
+---
+
+## Epic J — Operational Risk Controls
+
+### AP-049 — Source policy + trust labeling
+- **Priority:** P0
+- **Depends on:** AP-027, AP-038
+- **Done when:** Sources display trust labels (official/community/unverified), risk disclaimers, and explicit enable confirmation.
+
+### AP-050 — Performance budgets + SLO definitions (v1)
+- **Priority:** P0
+- **Depends on:** AP-041
+- **Done when:** Baseline SLOs exist for app launch, search response, stream start latency, and crash-free session rate.
+
+### AP-051 — Atomic persistence + crash recovery checks
+- **Priority:** P0
+- **Depends on:** AP-033
+- **Done when:** State writes are atomic, corruption is detected at startup, and recovery/fallback behavior is tested.
+
+### AP-052 — Degraded-mode UX contract
+- **Priority:** P1
+- **Depends on:** AP-003, AP-030
+- **Done when:** User-facing fallbacks for partial adapter failures are standardized (message, retry, alternate action).
+
+---
+
+## 1.0 milestone slices (recommended)
+1. **M0 — Contract foundation**
+   - Must complete: AP-001 through AP-005, AP-003, AP-004.
+2. **M1 — First playable V-slice (on-demand)**
+   - Must complete: AP-007, AP-008, AP-009, AP-010, AP-020, AP-021, AP-022, AP-024, AP-026, AP-029, AP-030.
+3. **M2 — Reliability floor**
+   - Must complete: AP-033, AP-037, AP-039, AP-041, AP-042, AP-050, AP-051.
+4. **M3 — Shipability floor**
+   - Must complete: AP-046, AP-047, AP-049 plus AP-045.
+5. **M4 — Controlled public rollout**
+   - Must complete: AP-053 and any remaining unresolved P0 tickets.
