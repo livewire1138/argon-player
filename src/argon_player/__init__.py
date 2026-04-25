@@ -1,3 +1,3 @@
 """Argon Player primitives package."""
 
-__all__ = ["domain", "config"]
+__all__ = ["adapters", "domain", "config"]
